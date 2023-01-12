@@ -55,6 +55,17 @@
       }))
     );
   }
+    function changeCheckedState(id: string, isChecked: boolean): void {
+    lists.update((lists) =>
+      lists.map((list) => ({
+        ...list,
+        task: list.task.map((item) => ({
+          ...item,
+          isCompleted: id === item.id ? !isChecked : item.isCompleted,
+        })),
+      }))
+    );
+  }
 </script>
 
 <div
@@ -65,7 +76,7 @@
     <div class="w-3 text-slate-400 mr-2">
       <FaGripLines />
     </div>
-    <input type="checkbox" checked={item.isCompleted} class="w-4" />
+    <input type="checkbox" checked={item.isCompleted} class="w-4"  on:click={() => changeCheckedState(item.id, item.isCompleted)} />
 
     <div
       class={`text-white text-lg font-thin ml-2 dash 
